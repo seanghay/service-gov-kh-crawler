@@ -1,5 +1,7 @@
 ### Crawl SERVICE.GOV.KH with bash script
 
+Required tools: `htmlq`, `jq`, `awk`, `aria2` and `curl`
+
 ```shell
 #!/usr/bin/env bash
 set -o pipefail
