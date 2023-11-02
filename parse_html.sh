@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 set -o pipefail
 
 # make a HEAD requests to many urls with many processors.
@@ -20,7 +21,10 @@ for file in html/*; do
 	ministry=$(htmlq --attribute href '#view_service > article > div.row > div.col-md-2.text-right.d-none.d-md-block > a' < $file)
 	ministry_id=$(basename $ministry)	
 	body=$(htmlq --text 'article .text-break' < $file)
-	json="{\"id\": $id, \"title\": $(echo $title | jq -R), \"ministry_id\": $ministry_id, \"body\": $(echo $body | jq -Rs) }"
+	json="{ \"id\": $id, \"title\": $(echo $title | jq -R), \"ministry_id\": $ministry_id, \"body\": $(echo $body | jq -Rs) }"
 	echo $json >> output.jsonl
 	echo $file
 done
+
+jq -s '.' output.jsonl > output.json
+tar -czf output.tar.gz output.json

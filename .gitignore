@@ -31,3 +31,4 @@ html/
 *.txt
 *.jsonl
 venv/
+*.tar.gz
